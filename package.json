@@ -1,0 +1,19 @@
+{
+  "name": "1629-generator",
+  "version": "1.0.0",
+  "description": "A Y2K-themed Discord username generator with chrome gradient aesthetic",
+  "main": "index.html",
+  "author": "0dclxudb0-bit",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0dclxudb0-bit/1629-generator.git"
+  },
+  "keywords": [
+    "username",
+    "generator",
+    "discord",
+    "y2k",
+    "aesthetic"
+  ]
+}

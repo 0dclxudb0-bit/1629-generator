@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1629 Y2K Generator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:Arial,sans-serif;
+    overflow:hidden;
+}
+
+#loader{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.chrome{
+    font-size:4rem;
+    font-weight:bold;
+    text-transform:uppercase;
+    background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #d7d7d7 20%,
+        #7d7d7d 50%,
+        #ffffff 80%,
+        #9c9c9c 100%
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shine 2s infinite linear;
+}
+
+@keyframes shine{
+    from{filter:brightness(1);}
+    50%{filter:brightness(1.5);}
+    to{filter:brightness(1);}
+}
+
+#app{
+    display:none;
+    min-height:100vh;
+    justify-content:center;
+    align-items:center;
+}
+
+.panel{
+    width:800px;
+    background:#101010;
+    border:1px solid #333;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 0 40px rgba(255,255,255,.1);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.controls{
+    display:grid;
+    gap:12px;
+}
+
+select,input,button{
+    background:#181818;
+    color:white;
+    border:1px solid #444;
+    padding:12px;
+    border-radius:10px;
+}
+
+button{
+    cursor:pointer;
+}
+
+button:hover{
+    background:#222;
+}
+
+#results{
+    margin-top:20px;
+    background:#080808;
+    border-radius:10px;
+    padding:15px;
+    height:350px;
+    overflow:auto;
+    white-space:pre-wrap;
+    font-family:monospace;
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+    <div class="chrome">1629</div>
+</div>
+
+<div id="app">
+    <div class="panel">
+
+        <h1 class="chrome">1629 Username Generator</h1>
+
+        <div class="controls">
+
+            <select id="mode">
+                <option value="3">3 Letter</option>
+                <option value="4">4 Letter</option>
+                <option value="og">OG</option>
+            </select>
+
+            <input type="number" id="amount" value="50" min="1" max="500">
+
+            <button onclick="generateNames()">Generate</button>
+
+            <button onclick="copyNames()">Copy</button>
+
+        </div>
+
+        <div id="results"></div>
+
+    </div>
+</div>
+
+<script>
+
+setTimeout(() => {
+    document.getElementById("loader").style.display="none";
+    document.getElementById("app").style.display="flex";
+},2500);
+
+const chars="abcdefghijklmnopqrstuvwxyz";
+
+function randomName(length){
+    let out="";
+    for(let i=0;i<length;i++){
+        out+=chars[Math.floor(Math.random()*chars.length)];
+    }
+    return out;
+}
+
+function generateOG(){
+
+    const ogWords=[
+        "void",
+        "envy",
+        "soul",
+        "fate",
+        "lost",
+        "zero",
+        "scar",
+        "wave",
+        "holy",
+        "rift",
+        "pure",
+        "aura",
+        "sacred",
+        "ghost",
+        "fallen"
+    ];
+
+    return ogWords[Math.floor(Math.random()*ogWords.length)];
+}
+
+function generateNames(){
+
+    const mode=document.getElementById("mode").value;
+    const amount=parseInt(document.getElementById("amount").value);
+
+    let results=[];
+
+    for(let i=0;i<amount;i++){
+
+        if(mode==="3"){
+            results.push(randomName(3));
+        }
+        else if(mode==="4"){
+            results.push(randomName(4));
+        }
+        else{
+            results.push(generateOG());
+        }
+    }
+
+    document.getElementById("results").textContent=results.join("\n");
+}
+
+function copyNames(){
+    navigator.clipboard.writeText(
+        document.getElementById("results").textContent
+    );
+    alert("Copied");
+}
+
+generateNames();
+
+</script>
+
+</body>
+</html>
